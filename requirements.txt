@@ -3,8 +3,8 @@ google-generativeai
 python-dotenv
 langchain
 PyPDF2
-chromadb
-faiss-cpu
+chromadb==0.4.24
+faiss-cpu==1.7.4
 langchain_google_genai 
 playsound
 pyttsx3
