@@ -12,8 +12,10 @@ from dotenv import load_dotenv
 import pyttsx3
 
 
-load_dotenv()
-GOOGLE_API_KEY=os.getenv("GOOGLE_API_KEY")
+# load_dotenv()
+# GOOGLE_API_KEY=os.getenv("GOOGLE_API_KEY")
+
+GOOGLE_API_KEY=st.secrets("GOOGLE_API_KEY")
 
 if not GOOGLE_API_KEY:
     raise ValueError("API Key not found. Please check your .env file.")
