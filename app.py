@@ -103,10 +103,6 @@ def main():
 
         if "generated_response" in st.session_state:
             if st.button("🔊 Speak the Answer"):
-        #         tts = gTTS(st.session_state.generated_response)
-        #         with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp_file:
-        #             tts.save(tmp_file.name)
-        #             st.audio(tmp_file.name, format="audio/mp3")
                 engine = pyttsx3.init()
                 engine.say(st.session_state.generated_response)
                 engine.runAndWait()
