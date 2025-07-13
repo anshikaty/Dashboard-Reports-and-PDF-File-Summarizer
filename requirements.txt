@@ -1,10 +1,11 @@
 streamlit
 google-generativeai
-python-dotenv
+# python-dotenv
 langchain
 PyPDF2
 chromadb==0.4.24
 faiss-cpu==1.7.4
 langchain_google_genai 
-playsound
-pyttsx3
+gTTS
+# playsound
+# pyttsx3

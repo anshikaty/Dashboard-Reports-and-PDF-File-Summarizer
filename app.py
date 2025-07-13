@@ -8,8 +8,10 @@ from langchain.vectorstores import FAISS
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
-from dotenv import load_dotenv
-import pyttsx3
+# from dotenv import load_dotenv
+from gtts import gTTS
+import tempfile
+# import pyttsx3
 
 
 # load_dotenv()
@@ -101,9 +103,13 @@ def main():
 
         if "generated_response" in st.session_state:
             if st.button("🔊 Speak the Answer"):
-                engine = pyttsx3.init()
-                engine.say(st.session_state.generated_response)
-                engine.runAndWait()
+                tts = gTTS(st.session_state.generated_response)
+                with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp_file:
+                    tts.save(tmp_file.name)
+                    st.audio(tmp_file.name, format="audio/mp3")
+                # engine = pyttsx3.init()
+                # engine.say(st.session_state.generated_response)
+                # engine.runAndWait()
 
     with st.sidebar:
         st.title("Menu:")
