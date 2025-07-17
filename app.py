@@ -9,9 +9,10 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
 from dotenv import load_dotenv
-# from gtts import gTTS
-import tempfile
-import pyttsx3
+from gtts import gTTS
+import io
+# import tempfile
+# import pyttsx3
 
 
 load_dotenv()
@@ -101,11 +102,30 @@ def main():
     if user_question:
         user_input(user_question)
 
-        if "generated_response" in st.session_state:
+        # "Speak the Answer" 
+        if st.session_state.generated_response:
             if st.button("🔊 Speak the Answer"):
-                engine = pyttsx3.init()
-                engine.say(st.session_state.generated_response)
-                engine.runAndWait()
+                try:
+                
+                    tts = gTTS(text=st.session_state.generated_response, lang='en', slow=False)
+
+                
+                    audio_bytes_io = io.BytesIO()
+                    tts.write_to_fp(audio_bytes_io)
+                    audio_bytes_io.seek(0) 
+
+                
+                    st.audio(audio_bytes_io.read(), format="audio/mp3")
+                    st.success("Playing audio...")
+                except Exception as e:
+                        st.error(f"Error generating or playing audio: {e}")
+                        st.info("Please ensure your device has an active internet connection for text-to-speech.")
+
+        # if "generated_response" in st.session_state:
+        #     if st.button("🔊 Speak the Answer"):
+        #         engine = pyttsx3.init()
+        #         engine.say(st.session_state.generated_response)
+        #         engine.runAndWait()
 
     with st.sidebar:
         st.title("Menu:")
